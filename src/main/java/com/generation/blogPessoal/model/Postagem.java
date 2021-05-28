@@ -9,9 +9,10 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.sun.istack.NotNull;
+
 
 /*como a conexão do banco de dados é estabelecida no arquivo application.properties
  * na pasta src/main/resources, aqui criaremos as tabelas, atributo, definição dos tipos
