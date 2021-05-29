@@ -11,10 +11,10 @@ import com.generation.blogPessoal.model.Postagem;
 public interface PostagemRepository extends JpaRepository<Postagem, Long>{
 	
 	
-	//public List<Postagem> findAllByTituloContainingIgnoreCase (String titulo);
+	List<Postagem> findAllByTituloContaining(String titulo);
 	/*idepedende da informação da url e banco de dados, 
 	 * o sistema de caixa alta ou pequena é ignorado*/
-	
-	Optional<Postagem> findAllByPostagem(String Postagem);
+
+	Optional<Postagem> findAllByTitulo(String titulo);
 	
 }

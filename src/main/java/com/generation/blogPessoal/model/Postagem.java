@@ -6,11 +6,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 
@@ -19,24 +22,27 @@ import javax.validation.constraints.Size;
  * e os get e set para inserir e buscar dados*/
 
 @Entity
-@Table(name = "postagem") //criar uma tabelo no bando de dados
+@Table(name = "tb_postagem") //criar uma tabelo no bando de dados
 public class Postagem {
 	
 	@Id //primary key
 	@GeneratedValue(strategy = GenerationType.IDENTITY) //autoincrement
 	private long id;
 	
-	@NotNull //necessario agregar valores 
-	@Size(min = 5, max = 100) //valores dos tipos de tabela
+	@NotNull 
+	@Size(min = 5, max = 100) 
 	private String titulo;
 	
 	@NotNull
 	@Size(min = 10, max = 500)
 	private String texto;	
 	
-	@Temporal(TemporalType.TIMESTAMP) //tipo date
-	private Date date = new java.sql.Date(System.currentTimeMillis()); //data atual
+	@Temporal(TemporalType.TIMESTAMP) 
+	private Date date = new java.sql.Date(System.currentTimeMillis()); 
 	
+	@ManyToOne
+	@JsonIgnoreProperties("postagem")
+	private Tema tema;
 	
 	public long getId() {
 		return id;
@@ -61,6 +67,12 @@ public class Postagem {
 	}
 	public void setDate(Date date) {
 		this.date = date;
+	}
+	public Tema getTema() {
+		return tema;
+	}
+	public void setTema(Tema tema) {
+		this.tema = tema;
 	}
 	
 	
