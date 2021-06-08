@@ -11,7 +11,7 @@ import com.generation.blogPessoal.model.Tema;
 @Repository
 public interface TemaRepository extends JpaRepository<Tema, Long>{
 	
-	//List<Tema> findAllByDesc(String descricao);
+	//List<Tema> findAllByTema(String descricao);
 	
 	Optional<Tema> findAllByDescricao(String descricao);
 }

@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.generation.blogPessoal.model.Postagem;
-import com.generation.blogPessoal.model.Tema;
-import com.generation.blogPessoal.repository.PostagemRepository;
 import com.generation.blogPessoal.service.PostagemService;
 
 @RestController
@@ -27,30 +25,13 @@ import com.generation.blogPessoal.service.PostagemService;
 public class PostagemController {
 
 	
-	private @Autowired PostagemRepository repository;
 	private @Autowired PostagemService services;
 	
-	/*encontrar todos os post realizados
-	 * 
-	 * outros exemplos de como realizar:
-	 * 	1. return ResponseEntity.ok(repository.findAll()); //retorna ok(200) para confirmar 
-		2. return ResponseEntity.status(202).body(repository.findAll()); //retorna accepted(202) para confirmar
-	 * */
 	@GetMapping("/todes")
 	public ResponseEntity<List<Postagem>> GetAll(){	
-		List<Postagem> listaDePostagem = repository.findAll();
-		if(!listaDePostagem.isEmpty()) {
-			return new ResponseEntity<>(listaDePostagem, HttpStatus.ACCEPTED);
-		}else {
-			return new ResponseEntity<>(listaDePostagem, HttpStatus.BAD_REQUEST);
-		}
+		return services.getPosts();
 	}
 	
-	/*equivalente ao um insert no mysql / metodo post
-	 * 
-	 * outra forma de realizar determinada ação
-	 * 1. return ResponseEntity.status(HttpStatus.ACCEPTED).body(repository.save(posta));
-	 * */
 	@PostMapping("/postar")
 	public ResponseEntity<Postagem> salvarPostagem(@RequestBody Postagem postar) {
 		return services.salvarPostagem(postar)
@@ -65,36 +46,20 @@ public class PostagemController {
 				.orElse(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
 	}
 	
+	
 	@DeleteMapping("/deletar/{id}")
-	public void delete(@PathVariable long id) {
-		repository.deleteById(id);
+	public ResponseEntity<?> deletarPostagem(@PathVariable long id) {
+		return services.deletar(id);
 	}
 	 
-	@GetMapping("/{id}")
-	public ResponseEntity<Postagem> GetById(@PathVariable long id){
-		return repository.findById(id)
-				.map(resp -> ResponseEntity.ok(resp))
-				.orElse(ResponseEntity.notFound().build());
+	@GetMapping("/procurar/id")
+	public ResponseEntity<Postagem> GetById(@RequestParam(defaultValue = "") long id){
+		return services.findByPost(id);
 	}
 	
-	@GetMapping("/titulo")
+	@GetMapping("/procurar/titulo")
 	public ResponseEntity<Object> GetByTitulo(@RequestParam(defaultValue = "") String titulo){
-		List<Postagem> obterTitulo = repository.findAllByTituloContaining(titulo);
-		if(!obterTitulo.isEmpty()) {
-			return ResponseEntity.status(202).body(obterTitulo);
-		}else {
-			return ResponseEntity.status(200).body("num achou");
-		}
+		return null;
 	}
-	
-	
-	
-	/*trazer as informações com base no titulo 
-	 * ex: 
-	 * localhost:8080/postagens/titulo/"um titulo do banco de dados"
-	@GetMapping("/titulo/{titulo}") 
-	public ResponseEntity<List<Postagem>> GetByTitulo(@PathVariable String titulo){
-		return ResponseEntity.ok(repository.findAllByTituloContainingIgnoreCase(titulo));
-	}*/
 	
 }

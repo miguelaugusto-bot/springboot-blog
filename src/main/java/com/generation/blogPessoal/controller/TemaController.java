@@ -30,12 +30,7 @@ public class TemaController {
 	
 	@GetMapping("/all")
 	public ResponseEntity<List<Tema>> GetAll(){	
-		List<Tema> listaTema = repository.findAll();
-		if(!listaTema.isEmpty()) {
-			return new ResponseEntity<>(listaTema, HttpStatus.ACCEPTED);
-		}else {
-			return new ResponseEntity<>(listaTema, HttpStatus.BAD_REQUEST);
-		}
+		return service.getAll();
 	}
 	
 	@GetMapping("/{id}")
@@ -45,9 +40,9 @@ public class TemaController {
 	}
 	
 	/*
-	@GetMapping("/nome/{nome}")
-	public ResponseEntity<List<Tema>> getByName(@PathVariable String nome){
-		return ResponseEntity.ok(repository.findAllByDescricao(nome));
+	@GetMapping("/tema/{tema}")
+	public ResponseEntity<List<Tema>> getByName(@PathVariable String tema){
+		return ResponseEntity.ok(repository.findAllByDesc(tema));
 	}*/
 	
 	@PostMapping("/add")
