@@ -28,6 +28,17 @@ public class TemaService {
 		}
 	}
 	
+	
+	//getTema
+	public ResponseEntity<List<Tema>> findByTema(String descricao){
+		List<Tema> obterTema = repository.findAllByDescricaoContaining(descricao);
+		if(!obterTema.isEmpty()) {
+			return ResponseEntity.status(200).body(obterTema);
+		}else {
+			return ResponseEntity.status(404).build();
+		}
+	}
+	
 	//post
 	public Optional<Tema> salvarDesc(Tema descricao) {
 		Optional<Tema> novoDesc = repository.findAllByDescricao(descricao.getDescricao());

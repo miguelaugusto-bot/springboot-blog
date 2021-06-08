@@ -1,9 +1,9 @@
 package com.generation.blogPessoal.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -27,23 +27,19 @@ public class PostagemController {
 	
 	private @Autowired PostagemService services;
 	
-	@GetMapping("/todes")
+	@GetMapping("/all")
 	public ResponseEntity<List<Postagem>> GetAll(){	
 		return services.getPosts();
 	}
 	
 	@PostMapping("/postar")
-	public ResponseEntity<Postagem> salvarPostagem(@RequestBody Postagem postar) {
-		return services.salvarPostagem(postar)
-				.map(novoPost -> ResponseEntity.status(HttpStatus.CREATED).body(novoPost))
-				.orElse(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
+	public Optional<Postagem> salvarPostagem(@RequestBody Postagem postar) {
+		return services.salvarPostagem(postar);
 	}
 	
 	@PutMapping("/atualizar/{id}")
-	public ResponseEntity<Postagem> atualizarPostagem(@PathVariable(value = "id") Long id,@RequestBody Postagem postar){
-		return services.atualizarPostagem(id, postar)
-				.map(postAtualizado -> ResponseEntity.status(HttpStatus.OK).body(postAtualizado))
-				.orElse(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
+	public ResponseEntity<Optional<Postagem>> atualizarPostagem(@PathVariable(value = "id") Long id,@RequestBody Postagem postar){
+		return services.atualizarPostagem(id, postar);
 	}
 	
 	
@@ -58,8 +54,8 @@ public class PostagemController {
 	}
 	
 	@GetMapping("/procurar/titulo")
-	public ResponseEntity<Object> GetByTitulo(@RequestParam(defaultValue = "") String titulo){
-		return null;
+	public ResponseEntity<List<Postagem>> GetByTitulo(@RequestParam(defaultValue = "") String titulo){
+		return services.findByTitulo(titulo);
 	}
 	
 }

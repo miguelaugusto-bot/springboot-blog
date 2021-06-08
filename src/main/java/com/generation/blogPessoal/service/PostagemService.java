@@ -35,9 +35,9 @@ public class PostagemService {
 	public ResponseEntity<List<Postagem>> findByTitulo(String titulo){
 	List<Postagem> obterTitulo = repository.findAllByTituloContaining(titulo);
 		if(!obterTitulo.isEmpty()) {
-			return ResponseEntity.status(202).body(obterTitulo);
+			return ResponseEntity.status(302).body(obterTitulo);
 		}else {
-			return ResponseEntity.status(200).build();
+			return ResponseEntity.status(404).build();
 		}
 	}
 	
@@ -51,16 +51,15 @@ public class PostagemService {
 		}
 	}
 	
-	
 	//put
-	public Optional<Postagem> atualizarPostagem(Long id, Postagem postagem) {
+	public ResponseEntity<Optional<Postagem>> atualizarPostagem(Long id, Postagem postagem) {
 		Optional<Postagem> atualizarPost = repository.findById(id);
 		if(atualizarPost.isPresent()) {
 			atualizarPost.get().setTitulo(postagem.getTitulo());
 			atualizarPost.get().setTexto(postagem.getTexto());
-			return Optional.ofNullable(repository.save(atualizarPost.get()));
+			return ResponseEntity.status(202).body(Optional.ofNullable(repository.save(atualizarPost.get())));
 		}else {
-			return Optional.empty();
+			return ResponseEntity.status(302).body(Optional.empty());
 		}
 	}
 	

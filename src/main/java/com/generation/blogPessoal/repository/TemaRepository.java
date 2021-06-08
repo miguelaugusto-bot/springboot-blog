@@ -1,5 +1,6 @@
 package com.generation.blogPessoal.repository;
 
+
 import java.util.List;
 import java.util.Optional;
 
@@ -11,7 +12,7 @@ import com.generation.blogPessoal.model.Tema;
 @Repository
 public interface TemaRepository extends JpaRepository<Tema, Long>{
 	
-	//List<Tema> findAllByTema(String descricao);
-	
-	Optional<Tema> findAllByDescricao(String descricao);
+	public Optional<Tema> findAllByDescricao(String descricao);
+
+	public List<Tema> findAllByDescricaoContaining(String descricao);
 }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.generation.blogPessoal.model.Tema;
@@ -26,11 +27,11 @@ public class TemaController {
 	
 	
 	private @Autowired TemaRepository repository;
-	private @Autowired TemaService service;
+	private @Autowired TemaService services;
 	
 	@GetMapping("/all")
 	public ResponseEntity<List<Tema>> GetAll(){	
-		return service.getAll();
+		return services.getAll();
 	}
 	
 	@GetMapping("/{id}")
@@ -39,22 +40,22 @@ public class TemaController {
 				.orElse(ResponseEntity.notFound().build());
 	}
 	
-	/*
-	@GetMapping("/tema/{tema}")
-	public ResponseEntity<List<Tema>> getByName(@PathVariable String tema){
-		return ResponseEntity.ok(repository.findAllByDesc(tema));
-	}*/
+	
+	@GetMapping("/procurar")
+	public ResponseEntity<List<Tema>> getByName(@RequestParam(value = "") String descricao){
+		return services.findByTema(descricao);
+	}
 	
 	@PostMapping("/add")
 	public ResponseEntity<Tema> post(@RequestBody Tema tema){
-		return service.salvarDesc(tema)
+		return services.salvarDesc(tema)
 				.map(resp -> ResponseEntity.status(HttpStatus.ACCEPTED).body(tema))
 				.orElse(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
 	}
 	
 	@PutMapping("/update/{id}")
 	public ResponseEntity<Tema> put(@PathVariable(value = "id") Long id,@RequestBody Tema tema){
-		return service.atualizarTema(id, tema)
+		return services.atualizarTema(id, tema)
 				.map(resp -> ResponseEntity.status(HttpStatus.ACCEPTED).body(resp))
 				.orElse(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
 	}
