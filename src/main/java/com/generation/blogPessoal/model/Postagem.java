@@ -16,13 +16,8 @@ import javax.validation.constraints.Size;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
-
-/*como a conexão do banco de dados é estabelecida no arquivo application.properties
- * na pasta src/main/resources, aqui criaremos as tabelas, atributo, definição dos tipos
- * e os get e set para inserir e buscar dados*/
-
 @Entity
-@Table(name = "tb_postagem") //criar uma tabelo no bando de dados
+@Table(name = "tb_postagem") 
 public class Postagem {
 	
 	@Id //primary key
