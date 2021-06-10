@@ -1,11 +1,13 @@
 package com.generation.blogPessoal.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +24,11 @@ public class UsuarioController {
 	
 	@Autowired
 	private UsuarioService usuarioService;
+	
+	@GetMapping("/all")
+	public ResponseEntity<List<Usuario>> GetAll(){	
+		return usuarioService.getAll();
+	}
 	
 	@PostMapping("/logar")
 	public ResponseEntity<UserLogin> Autentication(@RequestBody Optional<UserLogin> user){

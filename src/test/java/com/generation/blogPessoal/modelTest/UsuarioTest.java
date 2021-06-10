@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 
+import com.generation.blogPessoal.model.Usuario;
+
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class UsuarioTest {
 
@@ -24,7 +26,7 @@ public class UsuarioTest {
 	
 	@BeforeEach
 	public void start() {
-		usuario = new Usuario(null, "MiguelNunes", "Miguel0102", "123456789");
+		usuario = new Usuario("MiguelNunes", "Miguel0102", "123456789");
 	}
 	
 	@Test
