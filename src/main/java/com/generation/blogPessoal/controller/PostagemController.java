@@ -38,7 +38,7 @@ public class PostagemController {
 	}
 	
 	@PutMapping("/atualizar/{id}")
-	public ResponseEntity<Optional<Postagem>> atualizarPostagem(@PathVariable(value = "id") Long id,@RequestBody Postagem postar){
+	public Optional<Postagem> atualizarPostagem(@PathVariable(value = "id") Long id,@RequestBody Postagem postar){
 		return services.atualizarPostagem(id, postar);
 	}
 	

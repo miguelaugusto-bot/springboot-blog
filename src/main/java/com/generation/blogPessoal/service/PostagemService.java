@@ -52,14 +52,14 @@ public class PostagemService {
 	}
 	
 	//put
-	public ResponseEntity<Optional<Postagem>> atualizarPostagem(Long id, Postagem postagem) {
+	public Optional<Postagem> atualizarPostagem(Long id, Postagem postagem) {
 		Optional<Postagem> atualizarPost = repository.findById(id);
 		if(atualizarPost.isPresent()) {
 			atualizarPost.get().setTitulo(postagem.getTitulo());
 			atualizarPost.get().setTexto(postagem.getTexto());
-			return ResponseEntity.status(202).body(Optional.ofNullable(repository.save(atualizarPost.get())));
+			return Optional.ofNullable(repository.save(atualizarPost.get()));
 		}else {
-			return ResponseEntity.status(302).body(Optional.empty());
+			return (Optional.empty());
 		}
 	}
 	
