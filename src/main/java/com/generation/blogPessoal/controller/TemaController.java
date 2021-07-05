@@ -54,7 +54,7 @@ public class TemaController {
 	}
 	
 	@PutMapping("/update/{id}")
-	public ResponseEntity<Tema> put(@PathVariable(value = "id") Long id,@RequestBody Tema tema){
+	public ResponseEntity<Tema> put(@PathVariable(value = "id") long id, @RequestBody Tema tema){
 		return services.atualizarTema(id, tema)
 				.map(resp -> ResponseEntity.status(HttpStatus.ACCEPTED).body(resp))
 				.orElse(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
