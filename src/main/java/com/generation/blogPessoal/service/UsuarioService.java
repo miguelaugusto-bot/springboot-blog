@@ -30,6 +30,12 @@ public class UsuarioService {
 		}
 	}
 	
+	public ResponseEntity<Usuario> findByUser(Long id){
+		return repository.findById(id)
+				.map(user -> ResponseEntity.status(302).body(user))
+				.orElse(ResponseEntity.status(404).build());
+	}
+	
 	public Usuario CadastrarUsuario(Usuario usuario) {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		
