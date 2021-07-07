@@ -31,7 +31,7 @@ public class UsuarioController {
 		return usuarioService.getAll();
 	}
 	
-	@GetMapping("/{id}")
+	@GetMapping("/user/{id}")
 	public ResponseEntity<Usuario> getByUserId(@PathVariable Long id){
 		return usuarioService.findByUser(id);
 	}
