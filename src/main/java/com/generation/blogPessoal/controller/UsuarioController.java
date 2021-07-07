@@ -3,6 +3,8 @@ package com.generation.blogPessoal.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,8 +34,8 @@ public class UsuarioController {
 	}
 	
 	@GetMapping("/user/{id}")
-	public ResponseEntity<Usuario> getByUserId(@PathVariable Long id){
-		return usuarioService.findByUser(id);
+	public ResponseEntity<Usuario> getByUserId(@Valid @PathVariable Long id){
+		return usuarioService.findByIdUser(id);
 	}
 	
 	@PostMapping("/logar")
