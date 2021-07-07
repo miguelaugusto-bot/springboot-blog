@@ -32,7 +32,7 @@ public class UsuarioService {
 	
 	public ResponseEntity<Usuario> findByIdUser(Long id){
 		return repository.findById(id)
-				.map(user -> ResponseEntity.status(302).body(user))
+				.map(user -> ResponseEntity.status(200).body(user))
 				.orElse(ResponseEntity.status(404).build());
 	}
 	
