@@ -27,7 +27,7 @@ public class PostagemService {
 	//getid
 	public ResponseEntity<Postagem> findByPost(long id){
 		return repository.findById(id)
-				.map(postagem -> ResponseEntity.status(302).body(postagem))
+				.map(postagem -> ResponseEntity.status(200).body(postagem))
 				.orElse(ResponseEntity.status(404).build());
 	}
 	
