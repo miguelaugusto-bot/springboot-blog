@@ -48,8 +48,8 @@ public class PostagemController {
 		return services.deletar(id);
 	}
 	 
-	@GetMapping("/procurar/id")
-	public ResponseEntity<Postagem> GetById(@RequestParam(defaultValue = "") long id){
+	@GetMapping("/procurar/{id}")
+	public ResponseEntity<Postagem> GetById(@PathVariable long id){
 		return services.findByPost(id);
 	}
 	
