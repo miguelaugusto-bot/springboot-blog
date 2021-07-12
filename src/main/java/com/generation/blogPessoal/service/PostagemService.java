@@ -57,6 +57,7 @@ public class PostagemService {
 		if(atualizarPost.isPresent()) {
 			atualizarPost.get().setTitulo(postagem.getTitulo());
 			atualizarPost.get().setTexto(postagem.getTexto());
+			atualizarPost.get().setTema(postagem.getTema());
 			return Optional.ofNullable(repository.save(atualizarPost.get()));
 		}else {
 			return (Optional.empty());
