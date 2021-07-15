@@ -54,7 +54,7 @@ public class UsuarioController {
 	}
 	
 	@PutMapping("/atualizar/{id}")
-	public ResponseEntity<Usuario> put(@PathVariable(value = "id") Long id, Usuario usuario){
+	public ResponseEntity<Usuario> put(@PathVariable(value = "id") Long id,@RequestBody Usuario usuario){
 		return usuarioService.updateUser(id, usuario)
 				.map(resp -> ResponseEntity.status(HttpStatus.ACCEPTED).body(resp))
 				.orElse(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
