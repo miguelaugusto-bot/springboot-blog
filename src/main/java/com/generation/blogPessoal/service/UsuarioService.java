@@ -21,6 +21,7 @@ public class UsuarioService {
 	@Autowired
 	private UsuarioRepository repository;
 	
+	/*Get para todos sos usuarios*/
 	public ResponseEntity<List<Usuario>> getAll(){
 		List<Usuario> listaUsuario = repository.findAll();
 		if(!listaUsuario.isEmpty()) {
@@ -30,12 +31,35 @@ public class UsuarioService {
 		}
 	}
 	
+	/*Get id usuario*/
 	public ResponseEntity<Usuario> findByIdUser(Long id){
 		return repository.findById(id)
 				.map(user -> ResponseEntity.status(200).body(user))
 				.orElse(ResponseEntity.status(404).build());
 	}
 	
+	/*Put uusuario*/
+	public Optional<Usuario> updateUser(Long id, Usuario usuario){
+		Optional<Usuario> atualizarUsuario =  repository.findById(id);
+		if(atualizarUsuario.isPresent()) {
+			atualizarUsuario.get().setNome(usuario.getNome());
+			atualizarUsuario.get().setFoto(usuario.getFoto());
+			atualizarUsuario.get().setUsuario(usuario.getUsuario());
+			atualizarUsuario.get().setSenha(usuario.getSenha());
+			atualizarUsuario.get().setTipo(usuario.getTipo());
+			return Optional.ofNullable(repository.save(atualizarUsuario.get()));
+		}else {
+			return Optional.empty();
+		}
+	}
+	
+	/*Delete usuario*/
+	public ResponseEntity<Usuario> deleteUser(Long id){
+		repository.deleteById(id);
+		return ResponseEntity.status(200).build();
+	}
+	
+	/*Cadastrar usuario*/
 	public Usuario CadastrarUsuario(Usuario usuario) {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		
@@ -45,6 +69,7 @@ public class UsuarioService {
 		return repository.save(usuario);
 	}
 	
+	/*Logar*/
 	public Optional<UserLogin> Logar(Optional<UserLogin> user){
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		Optional<Usuario> usuario = repository.findByUsuario(user.get().getUsuario());

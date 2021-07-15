@@ -10,4 +10,5 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
 	
 	public Optional<Usuario> findByUsuario(String usuario);
 	
+	
 }
